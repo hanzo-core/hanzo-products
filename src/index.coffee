@@ -3,29 +3,40 @@ import Promise from 'broken'
 import moment  from 'moment-timezone'
 import numeral from 'numeral'
 
-import html from './templates/home.pug'
+import html1 from './templates/products.pug'
+import html2 from './templates/product.pug'
 import css  from './css/app.styl'
 
 rfc3339  =  Daisho.util.time.rfc3339
 yyyymmdd =  Daisho.util.time.yyyymmdd
 
-class HanzoOrders extends Daisho.Views.Dynamic
-  tag: 'hanzo-orders'
-  html: html
+class HanzoProducts extends Daisho.Views.Dynamic
+  tag: 'hanzo-products'
+  html: html1
   css:  css
 
   init: ->
     super
 
-HanzoOrders.register()
+HanzoProducts.register()
+
+class HanzoProduct extends Daisho.Views.Dynamic
+  tag: 'hanzo-product'
+  html: html2
+  css:  css
+
+  init: ->
+    super
+
+HanzoProduct.register()
 
 export default class Orders
   constructor: (daisho, ps, ms, cs)->
     tag = null
 
-    ps.register 'orders',
+    ps.register 'products',
       ->
-        @el = el = document.createElement 'hanzo-orders'
+        @el = el = document.createElement 'hanzo-products'
 
         tag = (daisho.mount el)[0]
         return el
@@ -34,5 +45,16 @@ export default class Orders
         return @el
       ->
 
-    ms.register 'Orders', ->
-      ps.show 'orders'
+    ps.register 'product',
+      ->
+        @el = el = document.createElement 'hanzo-product'
+
+        tag = (daisho.mount el)[0]
+        return el
+      ->
+        tag.refresh()
+        return @el
+      ->
+
+    ms.register 'Products', ->
+      ps.show 'products'

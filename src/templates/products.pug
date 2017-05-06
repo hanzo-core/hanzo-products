@@ -5,4 +5,6 @@
 .tables.content
   div
     daisho-list
-      .cell
+      .cell { data.get('slug') }
+      .cell { data.get('name') }
+      .cell { data.get('price') }

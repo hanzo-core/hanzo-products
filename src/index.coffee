@@ -15,8 +15,19 @@ class HanzoProducts extends Daisho.Views.Dynamic
   html: html1
   css:  css
 
+  configs:
+    'filter': []
+
   init: ->
     super
+
+  _refresh: ->
+    # filter = @data.get 'filter'
+    @client.products.list(opts).then (res)=>
+      @data.set 'products', res
+      @scheduleUpdate()
+
+    return true
 
 HanzoProducts.register()
 
@@ -30,7 +41,7 @@ class HanzoProduct extends Daisho.Views.Dynamic
 
 HanzoProduct.register()
 
-export default class Orders
+export default class Products
   constructor: (daisho, ps, ms, cs)->
     tag = null
 

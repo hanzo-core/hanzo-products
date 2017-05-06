@@ -1,0 +1,28 @@
+use 'sake-bundle'
+use 'sake-outdated'
+use 'sake-publish'
+use 'sake-test'
+use 'sake-version'
+
+task 'clean', 'clean project', ->
+  exec 'rm -rf dist'
+
+task 'build', 'build project', ->
+  bundle.write
+    cache:    false
+    entry:    'src/index.coffee'
+    format:   'es'
+    external: true
+    compilers:
+      coffee:
+        version: 1
+
+task 'watch', 'watch project', ->
+  build = (filename) ->
+    console.log filename, 'modified, rebuilding'
+    invoke 'build' if not running 'build'
+
+  watch 'src/css/*.styl',      build
+  watch 'src/templates/*.pug', build
+  watch 'src/*.coffee',        build
+  watch 'node_modules/',       build, watchSymlink: true

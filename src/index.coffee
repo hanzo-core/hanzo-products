@@ -23,7 +23,7 @@ class HanzoProducts extends Daisho.Views.Dynamic
 
   _refresh: ->
     # filter = @data.get 'filter'
-    @client.products.list(opts).then (res)=>
+    @client.product.list(opts).then (res)=>
       @data.set 'products', res
       @scheduleUpdate()
 

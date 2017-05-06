@@ -6,8 +6,10 @@
   "module": "dist/hanzo-products.mjs",
   "jsnext:main": "dist/hanzo-products.mjs",
   "scripts": {
+    "build": "sake build",
     "postinstall": "sake build",
-    "test": "sake build && sake test"
+    "pretest": "sake build",
+    "test": "sake test"
   },
   "repository": {
     "type": "git",
@@ -19,7 +21,7 @@
     "dashboard",
     "ecommerce"
   ],
-  "author": "Hanzo, Inc <hi@hanzo.io> (http://hanzo.io)",
+  "author": "Hanzo, Inc <hi@hanzo.io>",
   "bugs": {
     "url": "https://github.com/hanzo-core/hanzo-products/issues"
   },

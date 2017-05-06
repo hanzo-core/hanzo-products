@@ -14,6 +14,7 @@ class HanzoProducts extends Daisho.Views.Dynamic
   tag: 'hanzo-products'
   html: html1
   css:  css
+  _dataStaleField: '{}'
 
   configs:
     'filter': []

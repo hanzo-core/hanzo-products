@@ -7,5 +7,5 @@
     daisho-list(list-field='products')
       .cell { data.get('slug') }
       .cell { data.get('name') }
-      .cell { util.currency.centsFromDecimal(data.get('currency'), data.get('price')) }
+      .cell { util.currency.decimalFromCents(data.get('currency'), data.get('price')) }
       .cell { util.time.moment(data.get('updatedAt')).fromNow() }

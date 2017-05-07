@@ -45,6 +45,7 @@ class HanzoProduct extends Daisho.Views.Dynamic
     slug: [isRequired]
     name: [isRequired]
     sku:  [isRequired]
+    description: null
 
   init: ->
     super

@@ -1,8 +1,11 @@
 .header.content
   div
-    text-control(lookup='slug', placeholder='Slug')
-    text-control(lookup='name', placeholder='Name')
-    text-control(lookup='sku', placeholder='SKU')
+    text-control.input(lookup='name', placeholder='Name')
 
 .content
   div
+    .form-group
+      text-control.input(lookup='slug', placeholder='Slug')
+      text-control.input(lookup='sku', placeholder='SKU')
+    .form-group
+      textarea-control.input(lookup='description', placeholder='Description')

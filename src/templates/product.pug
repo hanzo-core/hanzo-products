@@ -2,13 +2,16 @@
   div
     text-control.input(lookup='name', placeholder='Name')
 
-.content
-  div
+.content.form-part-1
+  div.form-section
     .form-group.slug-sku-group
       text-control.input(lookup='slug', placeholder='Slug')
       text-control.input(lookup='sku', placeholder='SKU')
     .form-group
       textarea-control.input(lookup='description', placeholder='Description')
+  div.form-section
+    h2 Images
+      image-drop-control
 
 .content
   div

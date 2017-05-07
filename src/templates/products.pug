@@ -5,7 +5,7 @@
 .tables.content
   div
     daisho-table.table(table-columns='{ ["ID", "Name", "Price", "Last Updated"] }', table-field='products')
-      .table-cell(onclick='{ function(){ services.page.show("product", data.get("id"))} }') { data.get('slug') }
+      .table-cell(onclick='{ parent.show("product", data.get("id")) }') { data.get('slug') }
       .table-cell { data.get('name') }
       .table-cell { util.currency.decimalFromCents(data.get('currency'), data.get('price')) }
       .table-cell { util.time.moment(data.get('updatedAt')).fromNow() }

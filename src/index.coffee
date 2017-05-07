@@ -30,6 +30,10 @@ class HanzoProducts extends Daisho.Views.Dynamic
 
     return true
 
+  show: (id, opts) ->
+    return ()=>
+      @services.page.show(id, opts)
+
 HanzoProducts.register()
 
 class HanzoProduct extends Daisho.Views.Dynamic

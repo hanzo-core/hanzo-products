@@ -2,6 +2,7 @@ import Daisho  from 'daisho'
 import Promise from 'broken'
 import moment  from 'moment-timezone'
 import numeral from 'numeral'
+import { isRequired } from 'daisho/src/views/middleware'
 
 import html1 from './templates/products.pug'
 import html2 from './templates/product.pug'
@@ -40,6 +41,10 @@ class HanzoProduct extends Daisho.Views.Dynamic
   tag: 'hanzo-product'
   html: html2
   css:  css
+  configs:
+    slug: [isRequired]
+    name: [isRequired]
+    sku:  [isRequired]
 
   init: ->
     super

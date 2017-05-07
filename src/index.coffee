@@ -49,8 +49,8 @@ class HanzoProduct extends Daisho.Views.Dynamic
   init: ->
     super
 
-  _refresh: (opts)->
-    @client.product.get(opts).then (res)=>
+  _refresh: ()->
+    @client.product.get(@data.get('id')).then (res)=>
       @data.set res
       @scheduleUpdate()
 
@@ -75,13 +75,15 @@ export default class Products
       ->
 
     ps.register 'product',
-      ->
+      (ps, opts)->
         @el = el = document.createElement 'hanzo-product'
 
         tag = (daisho.mount el)[0]
+        tag.data.set 'id', opts.id
         return el
-      (ps, opts)->
-        tag.refresh opts
+      ->
+        tag.data.set 'id', opts.id
+        tag.refresh()
         return @el
       ->
 

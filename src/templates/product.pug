@@ -2,21 +2,38 @@
   div
     text-control.input(lookup='name', placeholder='Name')
 
-.content.form-part-1
-  div.form-section
-    .form-group.slug-sku-group
-      text-control.input(lookup='slug', placeholder='Slug')
-      text-control.input(lookup='sku', placeholder='SKU')
-    .form-group
-      textarea-control.input(lookup='description', placeholder='Description')
-  div.form-section
-    h2 Images
-      image-drop-control
+.form-content.form-1
+  .form-title
+    h2 Product Information
+  .form-part
+    .form-section
+      .form-group.two-inputs
+        text-control.input(lookup='slug', placeholder='Slug')
+        text-control.input(lookup='sku', placeholder='SKU')
+      .form-group
+        textarea-control.input(lookup='description', placeholder='Description')
+    .form-section
+      h3 Images
+        image-drop-control
 
-.content
-  div
-    .form-group
-      text-control.input(lookup='slug', placeholder='Slug')
-      text-control.input(lookup='sku', placeholder='SKU')
-    .form-group
-      textarea-control.input(lookup='description', placeholder='Description')
+.form-content.form-2
+  .form-title
+    h2 Pricing and Availability
+  .form-part
+    .form-section
+      h3 Price
+      .form-group.two-inputs
+        currency-control.input(lookup='price', placeholder='Price')
+        currency-control.input(lookup='listPrice', placeholder='Compare Price')
+      .form-group.two-inputs
+        div
+          span In Stock?
+          checkbox-control.input(lookup='instock', placeholder='In Stock')
+        text-control.input(lookup='quantity', placeholder='Quantity')
+    .form-section
+      h3 Shipping
+      .form-group.three-inputs
+        text-control.input(lookup='dimensions.length', placeholder='Length')
+        text-control.input(lookup='dimensions.width', placeholder='Width')
+        text-control.input(lookup='dimensions.height', placeholder='Height')
+

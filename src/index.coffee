@@ -42,10 +42,18 @@ class HanzoProduct extends Daisho.Views.Dynamic
   html: html2
   css:  css
   configs:
-    slug: [isRequired]
-    name: [isRequired]
-    sku:  [isRequired]
+    slug:        [isRequired]
+    name:        [isRequired]
+    sku:         [isRequired]
+    price:       [isRequired]
+    listPrice:   [isRequired]
+    instock:     null
+    quantity:    null
     description: null
+
+    'dimensions.length': null
+    'dimensions.width': null
+    'dimensions.height': null
 
   init: ->
     super

@@ -62,6 +62,7 @@ HanzoProduct.register()
 export default class Products
   constructor: (daisho, ps, ms, cs)->
     tag = null
+    opts = {}
 
     ps.register 'products',
       ->
@@ -75,13 +76,15 @@ export default class Products
       ->
 
     ps.register 'product',
-      (ps, opts)->
+      (ps, id)->
+        opts.id = id if id?
         @el = el = document.createElement 'hanzo-product'
 
         tag = (daisho.mount el)[0]
         tag.data.set 'id', opts.id
         return el
-      ->
+      (ps, id)->
+        opts.id = id if id?
         tag.data.set 'id', opts.id
         tag.refresh()
         return @el

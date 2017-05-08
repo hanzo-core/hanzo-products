@@ -15,7 +15,7 @@ class HanzoProducts extends Daisho.Views.Dynamic
   tag: 'hanzo-products'
   html: html1
   css:  css
-  _dataStaleField: '{}'
+  _dataStaleCached: '{}'
 
   configs:
     'filter': []
@@ -41,6 +41,8 @@ class HanzoProduct extends Daisho.Views.Dynamic
   tag: 'hanzo-product'
   html: html2
   css:  css
+  _dataStaleField:  'id'
+
   configs:
     slug:        [isRequired]
     name:        [isRequired]
@@ -51,9 +53,13 @@ class HanzoProduct extends Daisho.Views.Dynamic
     quantity:    null
     description: null
 
-    'dimensions.length': null
-    'dimensions.width': null
-    'dimensions.height': null
+    'dims.length': null
+    'dims.width': null
+    'dims.height': null
+
+    weight: null
+    units: null
+    estimatedDelivery: null
 
   init: ->
     super

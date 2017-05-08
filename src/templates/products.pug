@@ -4,8 +4,11 @@
 
 .tables.content
   div
-    daisho-table.table(table-columns='{ ["ID", "Name", "Price", "Last Updated"] }', table-field='products')
-      .table-cell(onclick='{ parent.show("product", data.get("id")) }') { data.get('slug') }
+    daisho-table.table(table-columns='{ ["Image", "ID", "Name", "Price", "Last Updated"] }', table-field='products')
+      .table-cell.img
+        img(src='/img/hero-prod.png', if='{ k == 0 }')
+        img(src='/img/shirt-men-black.png', if='{ k != 0 }')
+      .table-cell.id(onclick='{ parent.show("product", data.get("id")) }') { data.get('slug') }
       .table-cell { data.get('name') }
       .table-cell { util.currency.decimalFromCents(data.get('currency'), data.get('price')) }
       .table-cell { util.time.moment(data.get('updatedAt')).fromNow() }

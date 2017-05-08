@@ -14,7 +14,11 @@
         textarea-control.input(lookup='description', placeholder='Description')
     .form-section
       h3 Images
-        image-drop-control
+      form-group.three-inputs
+        // image-drop-control
+        img(src='/img/hero-prod.png')
+        img(src='/img/charging-case.png')
+        img(src='/img/add-photo.png')
 
 .form-content.form-2
   .form-title
@@ -32,8 +36,12 @@
         text-control.input(lookup='quantity', placeholder='Quantity')
     .form-section
       h3 Shipping
-      .form-group.three-inputs
-        text-control.input(lookup='dimensions.length', placeholder='Length')
-        text-control.input(lookup='dimensions.width', placeholder='Width')
-        text-control.input(lookup='dimensions.height', placeholder='Height')
+      .form-group.three-inputs.dimensions
+        text-control.input(lookup='dims.length', placeholder='Length')
+        text-control.input(lookup='dims.width', placeholder='Width')
+        text-control.input(lookup='dims.height', placeholder='Height')
+      .form-group.quarter-quarter-half-inputs.dimensions
+        text-control.input(lookup='weight', placeholder='Weight')
+        text-control.input(lookup='units', placeholder='Units')
+        text-control.input(lookup='estimatedDelivery', placeholder='Estimated Delivery')
 

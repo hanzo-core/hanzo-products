@@ -15,7 +15,6 @@ class HanzoProducts extends Daisho.Views.Dynamic
   tag: 'hanzo-products'
   html: html1
   css:  css
-  _dataStaleCached: '{}'
 
   configs:
     'filter': []
@@ -29,11 +28,9 @@ class HanzoProducts extends Daisho.Views.Dynamic
       @data.set 'products', res.models
       @scheduleUpdate()
 
-    return true
-
   show: (id, opts) ->
     return ()=>
-      @services.page.show(id, opts)
+      @services.page.show id, opts
 
 HanzoProducts.register()
 

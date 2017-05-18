@@ -2,13 +2,12 @@
   div
     h2 Products
 
-.tables.content
-  div
-    daisho-table.table(table-columns='{ ["Image", "ID", "Name", "Price", "Last Updated"] }', table-field='products')
-      .table-cell.img
-        img(src='/img/hero-prod.png', if='{ k == 0 }')
-        img(src='/img/shirt-men-black.png', if='{ k != 0 }')
-      .table-cell.id(onclick='{ parent.show("product", data.get("id")) }') { data.get('slug') }
-      .table-cell { data.get('name') }
-      .table-cell { util.currency.decimalFromCents(data.get('currency'), data.get('price')) }
-      .table-cell { util.time.moment(data.get('updatedAt')).fromNow() }
+.tables
+  daisho-table.table(table-columns='{ ["Image", "ID", "Name", "Price", "Last Updated"] }', table-field='products')
+    .table-cell.img(onclick='{ parent.show("product", data.get("id")) }')
+      img(src='/img/hero-prod.png', if='{ k == 0 }')
+      img(src='/img/shirt-men-black.png', if='{ k != 0 }')
+    .table-cell.id(onclick='{ parent.show("product", data.get("id")) }') { data.get('slug') }
+    .table-cell(onclick='{ parent.show("product", data.get("id")) }') { data.get('name') }
+    .table-cell(onclick='{ parent.show("product", data.get("id")) }') { util.currency.decimalFromCents(data.get('currency'), data.get('price')) }
+    .table-cell(onclick='{ parent.show("product", data.get("id")) }') { util.time.moment(data.get('updatedAt')).fromNow() }

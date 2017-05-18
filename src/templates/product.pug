@@ -1,6 +1,6 @@
 .header.content
   div
-    text-control.input(lookup='name', placeholder='Name')
+    text.input(lookup='name', placeholder='Name')
 
 .form-content.form-1
   .form-title
@@ -8,13 +8,13 @@
   .form-part
     .form-section
       .form-group.two-inputs
-        text-control.input(lookup='slug', placeholder='Slug')
-        text-control.input(lookup='sku', placeholder='SKU')
+        text.input(lookup='slug', placeholder='Slug')
+        text.input(lookup='sku', placeholder='SKU')
       .form-group
         textarea-control.input(lookup='description', placeholder='Description')
     .form-section
       h3 Images
-      form-group.three-inputs
+      form-group.three-images
         // image-drop-control
         img(src='/img/hero-prod.png')
         img(src='/img/charging-case.png')
@@ -27,21 +27,21 @@
     .form-section
       h3 Price
       .form-group.two-inputs
-        currency-control.input(lookup='price', placeholder='Price')
-        currency-control.input(lookup='listPrice', placeholder='Compare Price')
+        currency.input(lookup='price', placeholder='Price')
+        currency.input(lookup='listPrice', placeholder='Compare Price')
       .form-group.two-inputs
-        div
+        div.input
           span In Stock?
-          checkbox-control.input(lookup='instock', placeholder='In Stock')
-        text-control.input(lookup='quantity', placeholder='Quantity')
+          checkbox-control(lookup='instock', placeholder='In Stock')
+        text.input(lookup='quantity', placeholder='Quantity')
     .form-section
       h3 Shipping
       .form-group.three-inputs.dimensions
-        text-control.input(lookup='dims.length', placeholder='Length')
-        text-control.input(lookup='dims.width', placeholder='Width')
-        text-control.input(lookup='dims.height', placeholder='Height')
-      .form-group.quarter-quarter-half-inputs.dimensions
-        text-control.input(lookup='weight', placeholder='Weight')
-        text-control.input(lookup='units', placeholder='Units')
-        text-control.input(lookup='estimatedDelivery', placeholder='Estimated Delivery')
+        text.input(lookup='dims.length', placeholder='Length')
+        text.input(lookup='dims.width', placeholder='Width')
+        text.input(lookup='dims.height', placeholder='Height')
+      .form-group.quarter-quarter-half-inputs
+        text.input(lookup='weight', placeholder='Weight')
+        text.input(lookup='units', placeholder='Units')
+        text.input(lookup='estimatedDelivery', placeholder='Estimated Delivery')
 

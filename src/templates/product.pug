@@ -1,6 +1,8 @@
 .header.content
   div
     text.input(lookup='name', placeholder='Name')
+    button.submit(onclick='{ showSave }') Save
+    button(onclick='{ showReset }') Reset
 
 .form-content.form-1
   .form-title
@@ -46,17 +48,18 @@
         select-control.input(lookup='weightUnit', placeholder='Units', select-options='{ weightUnits }')
         text.input(lookup='estimatedDelivery', placeholder='Estimated Delivery')
 
-modal.reset
-  .form-content
-  .form-title
-  .form-part
-    .form-section
-      h4 Are you sure you want to reset?
+daisho-modal.reset(class='{ show: showResetModal }')
+  .modal-title
+    h4(if='{ !loading }') Are you sure you want to reset?
+    h4(if='{ loading }') Resetting...
+  .modal-section(if='{ !loading }')
+    button(onclick='{ reset }') Yes
+    button(onclick='{ cancelModals }') No
 
-modal.save
-  .form-content
-  .form-title
-  .form-part
-    .form-section
-      h4 Are you sure you want to save?
-
+daisho-modal.save(class='{ show: showSaveModal }')
+  .modal-title
+    h4(if='{ !loading }') Are you sure you want to save?
+    h4(if='{ loading }') Saving...
+  .modal-section(if='{ !loading }')
+    button(onclick='{ save }') Yes
+    button(onclick='{ cancelModals }') No

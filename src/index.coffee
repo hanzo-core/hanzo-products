@@ -40,6 +40,9 @@ class HanzoProduct extends Daisho.Views.Dynamic
   html: html2
   css:  css
   _dataStaleField:  'id'
+  showResetModal: false
+  showSaveModal: false
+  loading: false
 
   dimensionsUnits:
     cm: 'cm'
@@ -82,17 +85,46 @@ class HanzoProduct extends Daisho.Views.Dynamic
     #       console.log 'Uploading...', filepath
 
   _refresh: ()->
+    @loading = true
     @client.product.get(@data.get('id')).then (res)=>
+      @showResetModal = false
+      @loading = false
       @data.set res
       @scheduleUpdate()
+    .catch (err)->
+
 
     return true
 
   reset: ()->
-    @_refresh()
+    test = @_refresh()
+    test
+
+  save: ()->
+    test = @submit()
+    test
+
+  showReset: ()->
+    @showResetModal = true
+    @scheduleUpdate()
+
+  showSave: ()->
+    @showSaveModal = true
+    @scheduleUpdate()
+
+  cancelModals: ()->
+    @showResetModal = false
+    @showSaveModal = false
+    @scheduleUpdate()
 
   _submit: ()->
+    @loading = true
     @client.product.update(@data.get()).then (res)=>
+      @showSaveModal = false
+      @loading = false
+      @data.set res
+      @scheduleUpdate()
+    .catch (err)->
 
 HanzoProduct.register()
 

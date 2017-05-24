@@ -7,6 +7,7 @@ import { isRequired } from 'daisho/src/views/middleware'
 import html1 from './templates/products.pug'
 import html2 from './templates/product.pug'
 import css  from './css/app.styl'
+# import TractorBeam from 'tractor-beam'
 
 rfc3339  =  Daisho.util.time.rfc3339
 yyyymmdd =  Daisho.util.time.yyyymmdd
@@ -40,26 +41,45 @@ class HanzoProduct extends Daisho.Views.Dynamic
   css:  css
   _dataStaleField:  'id'
 
+  dimensionsUnits:
+    cm: 'cm'
+    m:  'm'
+    in: 'in'
+    ft: 'ft'
+
+  weightUnits:
+    g:  'g'
+    kg: 'kg'
+    oz: 'oz'
+    lb: 'lb'
+
   configs:
     slug:        [isRequired]
     name:        [isRequired]
     sku:         [isRequired]
     price:       [isRequired]
     listPrice:   [isRequired]
-    instock:     null
+    available:   null
     quantity:    null
     description: null
 
-    'dims.length': null
-    'dims.width': null
-    'dims.height': null
+    'dimensions.length': null
+    'dimensions.width':  null
+    'dimensions.height': null
+    dimensionsUnit:      null
 
-    weight: null
-    units: null
+    weight:            null
+    weightUnit:        null
     estimatedDelivery: null
 
   init: ->
     super
+
+    # @one 'updated', ()=>
+    #   beam = new TractorBeam '.tractor-beam'
+    #   beam.on 'dropped', (files) ->
+    #     for filepath in files
+    #       console.log 'Uploading...', filepath
 
   _refresh: ()->
     @client.product.get(@data.get('id')).then (res)=>
@@ -68,6 +88,11 @@ class HanzoProduct extends Daisho.Views.Dynamic
 
     return true
 
+  reset: ()->
+    @_refresh()
+
+  _submit: ()->
+    @client.product.update(@data.get()).then (res)=>
 
 HanzoProduct.register()
 

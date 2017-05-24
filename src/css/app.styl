@@ -6,23 +6,36 @@ hanzo-product
       .form-section
         column 1/2 2 $elementSpacing
 
-  .two-inputs > .input.input.input
-    column 1/2 2 ($elementSpacing / 2)
+  .two-inputs
+    & > .input.input.input
+    & > .checkbox.checkbox.checkbox
+      column 1/2 2 ($elementSpacing / 2)
 
-  .three-inputs > .input.input.input
   .three-images > img
     column 1/3 3 ($elementSpacing / 2)
 
+  .three-inputs
+    & > .input.input.input
+    & > .checkbox.checkbox.checkbox
+      column 1/3 3 ($elementSpacing / 2)
+
+  .four-inputs
+    & > .input.input.input
+    & > .checkbox.checkbox.checkbox
+      column 1/4 4 ($elementSpacing / 2)
+
   .quarter-quarter-half-inputs
     & > .input.input.input:not(:last-child)
+    & > .checkbox.checkbox.checkbox:not(:last-child)
       column 1/4 3 ($elementSpacing / 2)
     & > .input.input.input:last-child
+    & > .checkbox.checkbox.checkbox:last-child
       column 1/2 3 ($elementSpacing / 2)
 
   .dimensions
     .input
       position: relative
-      &:not(:last-child):after
+      &:nth-child(-n+2):after
         content: 'x'
         display: block
         position: absolute

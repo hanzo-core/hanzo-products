@@ -7,41 +7,56 @@
     h2 Product Information
   .form-part
     .form-section
+      h4 Display
       .form-group.two-inputs
         text.input(lookup='slug', placeholder='Slug')
         text.input(lookup='sku', placeholder='SKU')
       .form-group
-        textarea-control.input(lookup='description', placeholder='Description')
+        textbox.input(lookup='description', placeholder='Description')
     .form-section
-      h3 Images
+      h4 Images
       form-group.three-images
         // image-drop-control
         img(src='/img/hero-prod.png')
         img(src='/img/charging-case.png')
-        img(src='/img/add-photo.png')
+        img.tractor-beam(src='/img/add-photo.png')
 
 .form-content.form-2
   .form-title
     h2 Pricing and Availability
   .form-part
     .form-section
-      h3 Price
+      h4 Price
       .form-group.two-inputs
         currency.input(lookup='price', placeholder='Price')
         currency.input(lookup='listPrice', placeholder='Compare Price')
+      h4 Inventory
       .form-group.two-inputs
-        div.input
-          span In Stock?
-          checkbox-control(lookup='instock', placeholder='In Stock')
-        text.input(lookup='quantity', placeholder='Quantity')
+        switch.input(lookup='available', label='In Stock')
+        // text.input(lookup='quantity', placeholder='Quantity')
     .form-section
-      h3 Shipping
-      .form-group.three-inputs.dimensions
-        text.input(lookup='dims.length', placeholder='Length')
-        text.input(lookup='dims.width', placeholder='Width')
-        text.input(lookup='dims.height', placeholder='Height')
+      h4 Shipping
+      .form-group.four-inputs.dimensions
+        numeric.input(lookup='dimensions.length', placeholder='Length')
+        numeric.input(lookup='dimensions.width', placeholder='Width')
+        numeric.input(lookup='dimensions.height', placeholder='Height')
+        select-control.input(lookup='dimensionsUnit', placeholder='Unit', select-options='{ dimensionsUnits }')
       .form-group.quarter-quarter-half-inputs
         text.input(lookup='weight', placeholder='Weight')
-        text.input(lookup='units', placeholder='Units')
+        select-control.input(lookup='weightUnit', placeholder='Units', select-options='{ weightUnits }')
         text.input(lookup='estimatedDelivery', placeholder='Estimated Delivery')
+
+modal.reset
+  .form-content
+  .form-title
+  .form-part
+    .form-section
+      h4 Are you sure you want to reset?
+
+modal.save
+  .form-content
+  .form-title
+  .form-part
+    .form-section
+      h4 Are you sure you want to save?
 

@@ -1,13 +1,17 @@
 .header.content
   div
-    h2 Products
+    h2 { data.get('count') || 'No' } Products { data.get('count') ? '' : 'Found'  }
+    button.submit(onclick='{ create }') Create
+    button(onclick='{ openFilter }') Filter
 
-.tables
-  daisho-table.table(table-columns='{ ["Image", "ID", "Name", "Price", "Last Updated"] }', table-field='products')
+.tables(if='{ data.get("count") }')
+  daisho-table.table(table-columns='{ headers }', table-field='products')
     .table-cell.img(onclick='{ parent.show("product", data.get("id")) }')
       img(src='/img/hero-prod.png', if='{ k == 0 }')
       img(src='/img/shirt-men-black.png', if='{ k != 0 }')
-    .table-cell.id(onclick='{ parent.show("product", data.get("id")) }') { data.get('slug') }
     .table-cell(onclick='{ parent.show("product", data.get("id")) }') { data.get('name') }
+    .table-cell(onclick='{ parent.show("product", data.get("id")) }') { data.get('slug') }
+    .table-cell(onclick='{ parent.show("product", data.get("id")) }') { data.get('sku') }
     .table-cell(onclick='{ parent.show("product", data.get("id")) }') { util.currency.decimalFromCents(data.get('currency'), data.get('price')) }
+    .table-cell(onclick='{ parent.show("product", data.get("id")) }') { util.time.moment(data.get('createdAt')).format(util.time.yyyymmdd) }
     .table-cell(onclick='{ parent.show("product", data.get("id")) }') { util.time.moment(data.get('updatedAt')).fromNow() }

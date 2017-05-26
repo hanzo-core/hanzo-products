@@ -12,7 +12,7 @@
       h4 Display
       .form-group.two-inputs
         text.input(lookup='slug', placeholder='Slug')
-        text.input(lookup='sku', placeholder='SKU')
+        text.input(lookup='sku',  placeholder='SKU')
       .form-group
         textbox.input(lookup='description', placeholder='Description')
     .form-section
@@ -30,18 +30,20 @@
     .form-section
       h4 Price
       .form-group.two-inputs
-        currency.input(lookup='price', placeholder='Price')
+        currency.input(lookup='price',     placeholder='Price')
         currency.input(lookup='listPrice', placeholder='Compare Price')
       h4 Inventory
       .form-group.two-inputs
         switch.input(lookup='available', label='In Stock')
+        switch.input(lookup='preorder',  label='In Preorder')
+        switch.input(lookup='hidden',    label='Hidden')
         // text.input(lookup='quantity', placeholder='Quantity')
     .form-section
       h4 Shipping
       .form-group.four-inputs.dimensions
-        numeric.input(lookup='dimensions.length', placeholder='Length')
-        numeric.input(lookup='dimensions.width', placeholder='Width')
-        numeric.input(lookup='dimensions.height', placeholder='Height')
+        numeric.input(lookup='dimensions.length',     placeholder='Length')
+        numeric.input(lookup='dimensions.width',      placeholder='Width')
+        numeric.input(lookup='dimensions.height',     placeholder='Height')
         select-control.input(lookup='dimensionsUnit', placeholder='Unit', select-options='{ dimensionsUnits }')
       .form-group.quarter-quarter-half-inputs
         text.input(lookup='weight', placeholder='Weight')

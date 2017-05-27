@@ -166,7 +166,7 @@ class HanzoProduct extends Daisho.Views.Dynamic
   _refresh: ()->
     id = @data.get('id')
     if !id
-      @data.destroy()
+      @data.clear()
       @data.set @default()
       @scheduleUpdate()
       return true

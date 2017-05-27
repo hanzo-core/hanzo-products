@@ -111,14 +111,21 @@ class HanzoProduct extends Daisho.Views.Dynamic
   _dataStaleField:  'id'
   showResetModal: false
   showSaveModal: false
+  showMessageModal: false
+
   loading: false
 
+  # message modal's message
+  message: ''
+
+  # spatial units
   dimensionsUnits:
     cm: 'cm'
     m:  'm'
     in: 'in'
     ft: 'ft'
 
+  # mass units
   weightUnits:
     g:  'g'
     kg: 'kg'
@@ -128,23 +135,8 @@ class HanzoProduct extends Daisho.Views.Dynamic
   configs:
     slug:        [isRequired]
     name:        [isRequired]
-    sku:         null
     price:       [isRequired]
     listPrice:   [isRequired]
-    available:   null
-    hidden:      null
-    preorder:    null
-    quantity:    null
-    description: null
-
-    'dimensions.length': null
-    'dimensions.width':  null
-    'dimensions.height': null
-    dimensionsUnit:      null
-
-    weight:            null
-    weightUnit:        null
-    estimatedDelivery: null
 
   init: ->
     super
@@ -163,6 +155,7 @@ class HanzoProduct extends Daisho.Views.Dynamic
 
     return model
 
+  # load things
   _refresh: ()->
     id = @data.get('id')
     if !id
@@ -172,46 +165,87 @@ class HanzoProduct extends Daisho.Views.Dynamic
       return true
 
     @loading = true
-    @client.product.get(id).then (res)=>
-      @showResetModal = false
+    return @client.product.get(id).then (res)=>
+      @cancelModals()
       @loading = false
       @data.set res
       @scheduleUpdate()
     .catch (err)->
       @loading = false
 
-    return true
-
+  # load things but slightly differently
   reset: ()->
-    test = @_refresh()
-    test
+    @_refresh().then ()=>
+      @showMessage 'Reset!'
 
+  # save by using submit to validate inputs
   save: ()->
     test = @submit()
-    test
+    test.then (val)=>
+      if !val?
+        if $('.input .error')[0]?
+          @cancelModals()
+          @showMessage 'Some things were missing or incorrect.  Try again.'
+          @scheduleUpdate()
+    .catch (err)=>
+      @showMessage err
 
+  # show the message modal
+  showMessage: (msg)->
+    if !msg?
+      msg = 'There was an error.'
+    else
+      msg = msg.message ? msg
+
+    @cancelModals()
+    @message = msg
+    @showMessageModal = true
+    @scheduleUpdate()
+
+    @messageTimeoutId = setTimeout ()=>
+      @cancelModals()
+      @scheduleUpdate()
+    , 5000
+
+  # show the reset modal
   showReset: ()->
+    @cancelModals()
     @showResetModal = true
     @scheduleUpdate()
 
+  # show the save modal
   showSave: ()->
+    @cancelModals()
     @showSaveModal = true
     @scheduleUpdate()
 
+  # close all modals
   cancelModals: ()->
+    clearTimeout @messageTimeoutId
     @showResetModal = false
     @showSaveModal = false
+    @showMessageModal = false
     @scheduleUpdate()
 
+  # submit the form
   _submit: ()->
+    data = @data.get()
+
+    # presence of id determines method used
+    api = 'create'
+    if data.id?
+      api = 'update'
+
     @loading = true
-    @client.product.update(@data.get()).then (res)=>
-      @showSaveModal = false
+    @client.product[api](data).then (res)=>
+      @cancelModals()
       @loading = false
       @data.set res
+      @showMessage 'Success!'
       @scheduleUpdate()
     .catch (err)->
       @loading = false
+      @showMessage err
 
 HanzoProduct.register()
 

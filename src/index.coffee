@@ -20,7 +20,14 @@ class HanzoProducts extends Daisho.Views.Dynamic
   configs:
     'filter': []
 
+  initialized: false
   loading: false
+
+  # a map of all the range facets that should use currency instead of numeric
+  facetCurrency:
+    price: true
+    listPrice: true
+    inventoryCost: true
 
   # table header configuration
   headers: [
@@ -61,6 +68,8 @@ class HanzoProducts extends Daisho.Views.Dynamic
     }
   ]
 
+  openFilter: false
+
   init: ->
     super
 
@@ -77,7 +86,14 @@ class HanzoProducts extends Daisho.Views.Dynamic
   create: ()->
     @services.page.show 'product', ''
 
-  _refresh: ->
+  _refresh: (e)->
+    if @initialized && !e?
+      return
+    org = @daisho.akasha.get('orgs')[@daisho.akasha.get('activeOrg')]
+    @data.set 'facets.currency', org.currency
+
+    @initialized = true
+
     #default sorting
     if !@data.get('sort')?
       @data.set 'sort', 'UpdatedAt'
@@ -92,15 +108,53 @@ class HanzoProducts extends Daisho.Views.Dynamic
       display: 20
       page: 1
 
-    @client.product.list(opts).then (res)=>
+    q = @data.get 'facets.query'
+    opts.q = q if q
+
+    options = @data.get 'facets.options'
+    facets =
+      string: []
+      range: []
+
+    hasFacets = false
+    if options && options.string
+      for k, v of options.string
+        hasFacets = true
+
+        vals = []
+
+        for k2, v2 of v
+          if v2
+            facets.string.push
+              name: k
+              value: k2
+
+    if options && options.range
+      for k, v of options.range
+        hasFacets = true
+        facets.range.push
+          name: k
+          value:
+            start: v.from
+            end: v.to
+
+    if hasFacets
+      opts.facets = JSON.stringify facets
+
+    return @client.product.list(opts).then (res)=>
       @loading = false
       @data.set 'count', res.count
       @data.set 'products', res.models
+      @data.set 'facets.results', undefined
+      @data.set 'facets.results', res.facets
       @scheduleUpdate()
 
   show: (id, opts) ->
     return ()=>
       @services.page.show id, opts
+
+  toggleFilterMenu: ()->
+    @openFilter = !@openFilter
 
 HanzoProducts.register()
 
